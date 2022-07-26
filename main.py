@@ -14,8 +14,8 @@ if __name__ == '__main__':
         sleep(2)
         print(video.title)
         print(video_url)
-        file = YouTube(video_url).streams.filter(only_audio=True).first().download("test/")
+        file = YouTube(video_url).streams.filter(only_audio=True).first().download("music/" + channel.channel_name + "/")
         basename = os.path.basename(file)
         base, ext = os.path.splitext(basename)
         newfile = base + ".mp3"
-        os.rename(file, "test/" + channel.channel_name + " - " + newfile)
+        os.rename(file, "music/" + channel.channel_name + "/" + newfile)
