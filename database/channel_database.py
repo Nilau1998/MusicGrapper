@@ -20,14 +20,23 @@ class ChannelDatabase(Database):
         self.c.execute(f"DELETE from channels WHERE channel_id = '{channel_id}'")
         self.commit_changes()
 
-    def fetch_one_item(self):
-        pass
-
-    def fetch_many_items(self):
-        pass
+    def fetch_single_item(self, channel_id: str):
+        self.c.execute(f"SELECT from channels WHERE channel_id = '{channel_id}'")
 
     def fetch_all_items(self):
         self.c.execute("SELECT * FROM channels")
+        return self.c.fetchall()
+
+    def fetch_channel_names(self):
+        self.c.execute(f"SELECT channel_name FROM channels")
+        return self.c.fetchall()
+
+    def fetch_channel_ids(self):
+        self.c.execute(f"SELECT channel_id FROM channels")
+        return self.c.fetchall()
+
+    def fetch_channel_video_counts(self):
+        self.c.execute(f"SELECT channel_video_count FROM channels")
         return self.c.fetchall()
 
     def update_channel_name(self, channel_id: str, new_channel_name: str):
@@ -39,3 +48,7 @@ class ChannelDatabase(Database):
         self.c.execute(f"""UPDATE channels SET channel_name = '{new_channel_video_count}'
                         WHERE channel_id = '{channel_id}'""")
         self.commit_changes()
+
+    def check_channel_existence(self, channel_id: str):
+        self.c.execute(f"SELECT EXISTS(SELECT 1 FROM channels WHERE channel_id='{channel_id}')")
+        return self.c.fetchall()

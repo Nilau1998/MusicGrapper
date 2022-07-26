@@ -12,7 +12,6 @@ if __name__ == '__main__':
 
     for video, video_url in zip(channel.videos, channel.video_urls):
         sleep(2)
-        print(video.title)
         print(video_url)
         file = YouTube(video_url).streams.filter(only_audio=True).first().download("music/" + channel.channel_name + "/")
         basename = os.path.basename(file)

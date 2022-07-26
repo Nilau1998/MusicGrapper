@@ -13,7 +13,7 @@ class Database:
         """create a database connection to a SQLite database"""
         try:
             self.conn = sqlite3.connect(self.db_file)
-            print(sqlite3.version)
+            print(f"Successfully connected to {self.db_file}")
         except Error as e:
             print(e)
 
@@ -30,7 +30,7 @@ class Database:
     def delete_single_item(self):
         raise NotImplementedError
 
-    def fetch_one_item(self):
+    def fetch_single_item(self):
         raise NotImplementedError
 
     def fetch_many_items(self):
